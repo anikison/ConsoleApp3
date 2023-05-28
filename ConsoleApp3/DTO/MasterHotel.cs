@@ -7,13 +7,11 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp3.DTO
 {
-    public class Hotel: MasterHotel
+    public class MasterHotel
     {
         [ApiLight]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Chain> Chains { get; set; }
-        public Error error { get; set; }
-
+        [XmlIgnore]
+        public string MasterChain { get; set; }
+        public string MasterSecret { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace ConsoleApp3.DTO
     public class Error
     {
         public int ErrorId { get; set; }
+        [ApiLight]
         public string Description { get; set; }
     }
 }

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiLightAttribute.cs" />
+    <Compile Include="DTO\MasterHotel.cs" />
     <Compile Include="DTO\Hotel.cs" />
     <Compile Include="DTO\Chain.cs" />
     <Compile Include="DTO\Error.cs" />
