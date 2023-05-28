@@ -80,6 +80,8 @@ namespace ConsoleApp3
                 overrides.Add(objType, prop.Name, attributes);
             }
         }
+
+        //verifica se a classe é uma herança
         private static bool HasInheritance(Type derivedType) =>
             derivedType.BaseType != null && derivedType.BaseType != typeof(object);
     }
