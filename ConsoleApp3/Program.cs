@@ -11,8 +11,11 @@ namespace ConsoleApp3
 {
     public class Program
     {
+        
+
         static void Main(string[] args)
         {
+            List<Type> classesToCheck = new List<Type> { typeof(Hotel), typeof(Chain), typeof(Error), typeof(MasterHotel) };
             var hotel = new Hotel { 
                 Id = 1, Name = "HotelFull", 
                 Chains = new List<Chain>() { new Chain { Chainid = 1, ChainName = "Robost" } }, 
@@ -45,22 +48,27 @@ namespace ConsoleApp3
             var myObjectType = typeof(Hotel);
             //bool hasBaseClass1 = typeof(DerivedClass).IsSubclassOf(typeof(BaseClass));
             //Console.WriteLine("A classe possui uma classe base direta? " + hasBaseClass1);
+            bool hasInheritance = HasInheritance(myObjectType);
 
-            // Exemplo 2: Verificar se a classe é uma subclasse, considerando heranças em cadeia
-            bool hasInheritance = HasInheritance(typeof(Hotel));
-            Console.WriteLine("A classe possui alguma classe base? " + hasInheritance);
-            bool hasInheritance2 = HasInheritance(typeof(Chain));
-            Console.WriteLine("A classe possui alguma classe base? " + hasInheritance2);
             var props = myObjectType.GetProperties();
 
             XmlAttributeOverrides overrides = new XmlAttributeOverrides();
             XmlAttributes attributes = new XmlAttributes();
-
+            IPropertyChecker propertyChecker = new PropertyCheckerStrategy();
+            var x = 1;
             foreach (var prop in props)
             {
-                var x = prop.PropertyType.Namespace.StartsWith("System");
+                //PropertyCheckerStrategy.PropertyExists(classesToCheck, propertyName);
+                var tipo = prop.GetType();
+                var x1 = tipo == typeof(Chain);
+                var x2 = tipo == typeof(List<Chain>);
+                foreach (var item in tipo.GetFields())
+                {
+                    var tipofield = item.FieldType;
+                }
 
-                //if (prop.PropertyType.IsClass)
+                //if (propertyChecker.PropertyExists(classesToCheck, prop.GetType()))
+                //    x = 2;
                 //    AddAttributesFromClass(prop, overrides, attributes);
 
                 attributes.XmlIgnore = prop.IsDefined(typeof(ApiLightAttribute), inherit: true);
@@ -71,6 +79,8 @@ namespace ConsoleApp3
 
             Console.ReadKey();
         }
+
+
         private static void AddAttributesFromClass(object fullclass, XmlAttributeOverrides overrides, XmlAttributes attributes)
         {
             var objType = fullclass.GetType();
